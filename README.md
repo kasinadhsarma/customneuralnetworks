@@ -1,5 +1,7 @@
 # Custom Neural Networks
 
+[![codecov](https://codecov.io/gh/yourusername/customneuralnetworks/branch/main/graph/badge.svg?token=PLACEHOLDER_CODECOV_TOKEN)](https://codecov.io/gh/yourusername/customneuralnetworks)
+
 A high-performance C++ neural network library designed for scalability and efficiency. This library supports training large models with features like gradient checkpointing, OpenMP parallelization, and efficient memory management.
 
 ## Features

@@ -35,6 +35,7 @@ We use GitHub to host code, to track issues and feature requests, as well as acc
 - Ensure all tests pass before submitting PR
 - Include performance tests for optimizations
 - Test with different compilers and platforms
+Code coverage is tracked using Codecov, and detailed reports are available [here](https://codecov.io/gh/yourusername/customneuralnetworks). We aim for high coverage, so please ensure your contributions are well-tested.
 
 ## Documentation
 
