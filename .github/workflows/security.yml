@@ -1,49 +1,62 @@
-name: Security Scan
+name: Security Analysis
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ main ]
   schedule:
     - cron: '0 0 * * 0'  # Run weekly
 
-permissions:
-  actions: read
-  contents: read
-  security-events: write
-
 jobs:
-  security:
+  analyze:
+    name: Security Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      pages: write
+      id-token: write
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: cpp
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:cpp"
-
-    - name: Install Dependencies
+    - name: Install flawfinder
       run: |
         sudo apt-get update
         sudo apt-get install -y flawfinder
 
-    - name: Run Flawfinder
-      run: |
-        flawfinder --html --minlevel=3 . > flawfinder-report.html
+    - name: Create reports directory
+      run: mkdir -p reports
 
-    - name: Upload Flawfinder Report
+    - name: Run flawfinder
+      run: |
+        flawfinder --html --minlevel=3 . > reports/flawfinder-report.html
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload flawfinder report
       uses: actions/upload-pages-artifact@v3
       with:
-        name: flawfinder-report
-        path: flawfinder-report.html
+        path: 'reports'
+
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    # Add CodeQL analysis
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: cpp
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:cpp"

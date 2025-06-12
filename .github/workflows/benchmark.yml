@@ -2,42 +2,43 @@ name: Benchmarks
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: [ main ]
 
 jobs:
   benchmark:
+    name: Performance Regression Check
     runs-on: ubuntu-latest
-
+    
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
 
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake build-essential libomp-dev
+        sudo apt-get install -y cmake g++ libomp-dev
 
-    - name: Clean and Configure CMake
-      run: |
-        rm -rf build/
-        mkdir -p build
-        cd build
-        cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_BENCHMARKS=ON
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release -DENABLE_BENCHMARKS=ON
 
     - name: Build
-      working-directory: build
-      run: |
-        make clean || true
-        make
+      run: cmake --build ${{github.workspace}}/build --config Release -j$(nproc)
 
-    - name: Run Benchmarks
-      working-directory: build
+    - name: Run benchmarks
       run: |
-        ./neural_network_benchmark || true
+        cd ${{github.workspace}}/build
+        ./neural_network_benchmark --benchmark_format=json --benchmark_out=benchmark_result.json
 
-    - name: Store Benchmark Results
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    - name: Create gh-pages branch if not exists
+      run: |
+        git checkout -b gh-pages || git checkout gh-pages
+        git reset --hard origin/gh-pages || true
+        mkdir -p dev/bench
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+
+    - name: Store benchmark result
       uses: benchmark-action/github-action-benchmark@v1
       with:
         name: C++ Benchmark
@@ -48,3 +49,5 @@ jobs:
         alert-threshold: '150%'
         comment-on-alert: true
         fail-on-alert: true
+        gh-pages-branch: 'gh-pages'
+        benchmark-data-dir-path: 'dev/bench'
