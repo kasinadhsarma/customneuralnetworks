@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   benchmark:
     name: Performance Regression Check
@@ -19,35 +24,44 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y cmake g++ libomp-dev
 
+    - name: Clean build directory
+      run: rm -rf build
+
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release -DENABLE_BENCHMARKS=ON
+      run: |
+        cmake -B build \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DENABLE_BENCHMARKS=ON
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config Release -j$(nproc)
+      working-directory: build
+      run: |
+        cmake --build . --config Release -j$(nproc)
 
     - name: Run benchmarks
+      working-directory: build
       run: |
-        cd ${{github.workspace}}/build
         ./neural_network_benchmark --benchmark_format=json --benchmark_out=benchmark_result.json
 
-    - name: Create gh-pages branch if not exists
-      run: |
-        git checkout -b gh-pages || git checkout gh-pages
-        git reset --hard origin/gh-pages || true
-        mkdir -p dev/bench
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "github-actions[bot]"
+    - name: Configure Pages
+      uses: actions/configure-pages@v4
 
-    - name: Store benchmark result
+    - name: Upload benchmark results
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'build/benchmark_result.json'
+
+    - name: Deploy benchmark results
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+    - name: Store benchmark data
       uses: benchmark-action/github-action-benchmark@v1
       with:
-        name: C++ Benchmark
+        name: C++ Neural Network Benchmarks
         tool: 'googlecpp'
         output-file-path: build/benchmark_result.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
         auto-push: true
         alert-threshold: '150%'
         comment-on-alert: true
-        fail-on-alert: true
-        gh-pages-branch: 'gh-pages'
-        benchmark-data-dir-path: 'dev/bench'

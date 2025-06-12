@@ -1,4 +1,4 @@
-name: Coverage
+name: Code Coverage
 
 on:
   push:
@@ -6,11 +6,16 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   coverage:
-    name: Code Coverage
+    name: Code Coverage Analysis
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
 
@@ -19,24 +24,49 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y cmake g++ libomp-dev lcov
 
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+    - name: Clean build directory
+      run: rm -rf build
+
+    - name: Configure CMake with Coverage
+      run: |
+        cmake -B build \
+          -DCMAKE_BUILD_TYPE=Debug \
+          -DENABLE_COVERAGE=ON \
+          -DCMAKE_CXX_FLAGS="--coverage -fprofile-arcs -ftest-coverage"
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build -j$(nproc)
+      working-directory: build
+      run: |
+        cmake --build . --config Debug -j$(nproc)
 
     - name: Run tests with coverage
+      working-directory: build
       run: |
-        cd ${{github.workspace}}/build
-        ./neural_network_benchmark
-        lcov --capture --directory . --output-file coverage.info
-        lcov --remove coverage.info '/usr/*' --output-file coverage.info
+        ctest --output-on-failure
+        lcov --directory . --capture --output-file coverage.info
+        lcov --remove coverage.info '/usr/*' '*/tests/*' '*/build/*' --output-file coverage.info
         lcov --list coverage.info
 
-    - name: Upload coverage reports to Codecov
+    - name: Generate coverage report
+      working-directory: build
+      run: |
+        genhtml coverage.info --output-directory coverage_report
+
+    - name: Configure Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload coverage results
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'build/coverage_report'
+
+    - name: Deploy coverage report
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+    - name: Upload to Codecov
       uses: codecov/codecov-action@v3
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
         files: ./build/coverage.info
         fail_ci_if_error: true
         verbose: true
