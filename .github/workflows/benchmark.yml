@@ -1,0 +1,40 @@
+name: Benchmarks
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential libomp-dev
+
+    - name: Configure CMake
+      run: |
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release -DENABLE_BENCHMARKS=ON
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config Release
+
+    - name: Run Benchmarks
+      working-directory: ${{github.workspace}}/build
+      run: |
+        ./neural_network_benchmark
+
+    - name: Store Benchmark Results
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        tool: 'googlecpp'
+        output-file-path: ${{github.workspace}}/build/benchmark_result.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
