@@ -8,17 +8,9 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # Run weekly
 
-# Sets permissions of the GITHUB_TOKEN
 permissions:
   contents: read
-  pages: write
-  id-token: write
   security-events: write
-
-# Allow only one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
 
 jobs:
   analyze:
@@ -39,24 +31,17 @@ jobs:
 
     - name: Run flawfinder
       run: |
-        # Create a list of directories to scan, excluding dot directories
-        find . -type d -not -path '*/\.*' -not -path './build/*' > dirs_to_scan.txt
+        # Create a list of directories to scan, excluding dot directories and build directories
+        find . -type d -not -path '*/\.*' -not -path './build/*' -not -path './_deps/*' > dirs_to_scan.txt
         # Run flawfinder on the filtered directories
         cat dirs_to_scan.txt | xargs flawfinder --html --minlevel=3 > reports/flawfinder-report.html
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
+    - name: Upload flawfinder results as artifact
+      uses: actions/upload-artifact@v3
       with:
-        enablement: true
-
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: './reports'
-
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+        name: flawfinder-report
+        path: reports/flawfinder-report.html
+        retention-days: 14
 
     # Add CodeQL analysis
     - name: Initialize CodeQL
