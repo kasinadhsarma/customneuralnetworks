@@ -1,0 +1,76 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directories
+build/
+cmake-build-*/
+_deps/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files
+.DS_Store
+.directory
+.Trash-*
+
+# Python virtual environments
+venv/
+env/
+
+# Model files
+*.json
+*.pt
+*.onnx
+*.h5
+
+# Generated documentation
+docs/_build/
+doxygen_doc/
+
+# Test coverage
+coverage/
+*.gcov
+*.gcda
+*.gcno
+
+# Debugging files
+core.*
+*.dSYM/
+
+# Log files
+*.log
+logs/
