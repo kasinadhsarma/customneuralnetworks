@@ -5,7 +5,6 @@
 #include "DenseLayer.hpp"
 #include "ReLU.hpp"
 #include "Model.hpp"
-#include <fstream>
 
 namespace nn {
 namespace benchmark {
@@ -41,7 +40,7 @@ static void BM_DenseLayerForward(::benchmark::State& state) {
         for (auto _ : state) {
             auto output = layer->forward(input);
             ::benchmark::DoNotOptimize(output);
-            ::benchmark::ClobberMemory(); // Prevent compiler optimizations
+            ::benchmark::ClobberMemory();
         }
         
         state.SetComplexityN(input_size * output_size);
@@ -80,13 +79,13 @@ static void BM_ModelTraining(::benchmark::State& state) {
     const size_t output_size = 10;
     
     try {
-        // Setup model with RAII
+        // Setup model
         auto model = std::make_unique<nn::Model>(0.01f);
         model->add_layer(std::make_unique<nn::DenseLayer>(input_size, hidden_size));
         model->add_layer(std::make_unique<nn::ReLU>());
         model->add_layer(std::make_unique<nn::DenseLayer>(hidden_size, output_size));
         
-        // Generate random training data with bounds checking
+        // Generate random training data
         std::vector<std::vector<float>> inputs;
         std::vector<std::vector<float>> targets;
         inputs.reserve(batch_size);
@@ -112,39 +111,7 @@ static void BM_ModelTraining(::benchmark::State& state) {
 } // namespace benchmark
 } // namespace nn
 
-class JSONReporter : public ::benchmark::BenchmarkReporter {
-public:
-    JSONReporter(const std::string& output_file) : output_file_(output_file) {}
-
-    bool ReportContext(const Context& context) override {
-        std::ofstream file(output_file_);
-        file << "{\n  \"context\": {\n";
-        file << "    \"date\": \"" << context.ReportDate << "\",\n";
-        file << "    \"num_cpus\": " << context.num_cpus << ",\n";
-        file << "    \"cpu_scaling_enabled\": " << context.cpu_scaling_enabled << "\n  },\n";
-        file << "  \"benchmarks\": [\n";
-        return true;
-    }
-
-    void ReportRuns(const std::vector<Run>& reports) override {
-        std::ofstream file(output_file_, std::ios_base::app);
-        bool first = true;
-        for (const auto& run : reports) {
-            if (!first) file << ",\n";
-            first = false;
-            file << "    {\n";
-            file << "      \"name\": \"" << run.run_name << "\",\n";
-            file << "      \"iterations\": " << run.iterations << ",\n";
-            file << "      \"real_time\": " << run.GetAdjustedRealTime() << ",\n";
-            file << "      \"cpu_time\": " << run.GetAdjustedCPUTime() << "\n    }";
-        }
-        file << "\n  ]\n}\n";
-    }
-
-private:
-    std::string output_file_;
-};
-
+// Register benchmarks with reasonable ranges
 BENCHMARK(nn::benchmark::BM_DenseLayerForward)
     ->Args({64, 32})
     ->Args({128, 64})
@@ -159,15 +126,4 @@ BENCHMARK(nn::benchmark::BM_ModelTraining)
     ->Range(8, 128)
     ->Complexity();
 
-int main(int argc, char** argv) {
-    ::benchmark::Initialize(&argc, argv);
-    
-    if (::benchmark::ReportUnrecognizedArguments(argc, argv)) return 1;
-    
-    // Create and register the JSON reporter
-    auto json_reporter = std::make_unique<JSONReporter>("benchmark_result.json");
-    ::benchmark::RegisterReporter("json", json_reporter.get());
-    
-    ::benchmark::RunSpecifiedBenchmarks();
-    return 0;
-}
+BENCHMARK_MAIN();

@@ -338,6 +338,9 @@ CXXFEATURECHECK_DEBUG:BOOL=OFF
 //No help, variable specified on the command line.
 ENABLE_BENCHMARKS:UNINITIALIZED=ON
 
+//Enable coverage reporting
+ENABLE_COVERAGE:BOOL=OFF
+
 //Directory under which to collect all populated content
 FETCHCONTENT_BASE_DIR:PATH=/home/kasinadhsarma/customneuralnetworks/build/_deps
 
