@@ -1,0 +1,7 @@
+/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles/customneuralnetworks.dir
+/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles/test.dir
+/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles/edit_cache.dir
+/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles/rebuild_cache.dir
+/home/kasinadhsarma/customneuralnetworks/build/_deps/json-build/CMakeFiles/test.dir
+/home/kasinadhsarma/customneuralnetworks/build/_deps/json-build/CMakeFiles/edit_cache.dir
+/home/kasinadhsarma/customneuralnetworks/build/_deps/json-build/CMakeFiles/rebuild_cache.dir
