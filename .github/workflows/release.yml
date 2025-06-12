@@ -5,12 +5,16 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   create-release:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up build environment
       run: |
@@ -18,37 +22,24 @@ jobs:
         sudo apt-get install -y cmake build-essential libomp-dev
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config Release
+      run: cmake --build build --config Release
 
     - name: Run Tests
-      working-directory: ${{github.workspace}}/build
+      working-directory: build
       run: ctest -C Release --output-on-failure
 
     - name: Create Release Package
       run: |
-        cd ${{github.workspace}}/build
+        cd build
         cpack -G TGZ
 
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        files: build/customneuralnetworks*.tar.gz
+        generate_release_notes: true
         draft: false
         prerelease: false
-
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{github.workspace}}/build/customneuralnetworks.tar.gz
-        asset_name: customneuralnetworks.tar.gz
-        asset_content_type: application/gzip

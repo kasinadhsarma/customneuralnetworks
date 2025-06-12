@@ -63,18 +63,57 @@ CMAKE_BINARY_DIR = /home/kasinadhsarma/customneuralnetworks/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/neural_network_lib.dir/all
 all: CMakeFiles/customneuralnetworks.dir/all
+all: CMakeFiles/neural_network_benchmark.dir/all
 all: _deps/json-build/all
+all: _deps/benchmark-build/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: _deps/json-build/preinstall
+preinstall: _deps/benchmark-build/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/neural_network_lib.dir/clean
 clean: CMakeFiles/customneuralnetworks.dir/clean
+clean: CMakeFiles/neural_network_benchmark.dir/clean
 clean: _deps/json-build/clean
+clean: _deps/benchmark-build/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory _deps/benchmark-build
+
+# Recursive "all" directory target.
+_deps/benchmark-build/all: _deps/benchmark-build/src/all
+.PHONY : _deps/benchmark-build/all
+
+# Recursive "preinstall" directory target.
+_deps/benchmark-build/preinstall: _deps/benchmark-build/src/preinstall
+.PHONY : _deps/benchmark-build/preinstall
+
+# Recursive "clean" directory target.
+_deps/benchmark-build/clean: _deps/benchmark-build/src/clean
+.PHONY : _deps/benchmark-build/clean
+
+#=============================================================================
+# Directory level rules for directory _deps/benchmark-build/src
+
+# Recursive "all" directory target.
+_deps/benchmark-build/src/all: _deps/benchmark-build/src/CMakeFiles/benchmark.dir/all
+_deps/benchmark-build/src/all: _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/all
+.PHONY : _deps/benchmark-build/src/all
+
+# Recursive "preinstall" directory target.
+_deps/benchmark-build/src/preinstall:
+.PHONY : _deps/benchmark-build/src/preinstall
+
+# Recursive "clean" directory target.
+_deps/benchmark-build/src/clean: _deps/benchmark-build/src/CMakeFiles/benchmark.dir/clean
+_deps/benchmark-build/src/clean: _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/clean
+.PHONY : _deps/benchmark-build/src/clean
 
 #=============================================================================
 # Directory level rules for directory _deps/json-build
@@ -92,18 +131,44 @@ _deps/json-build/clean:
 .PHONY : _deps/json-build/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/neural_network_lib.dir
+
+# All Build rule for target.
+CMakeFiles/neural_network_lib.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=27,28,29,30 "Built target neural_network_lib"
+.PHONY : CMakeFiles/neural_network_lib.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/neural_network_lib.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/neural_network_lib.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 0
+.PHONY : CMakeFiles/neural_network_lib.dir/rule
+
+# Convenience name for target.
+neural_network_lib: CMakeFiles/neural_network_lib.dir/rule
+.PHONY : neural_network_lib
+
+# clean rule for target.
+CMakeFiles/neural_network_lib.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/clean
+.PHONY : CMakeFiles/neural_network_lib.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/customneuralnetworks.dir
 
 # All Build rule for target.
-CMakeFiles/customneuralnetworks.dir/all:
+CMakeFiles/customneuralnetworks.dir/all: CMakeFiles/neural_network_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target customneuralnetworks"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=23,24 "Built target customneuralnetworks"
 .PHONY : CMakeFiles/customneuralnetworks.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/customneuralnetworks.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/customneuralnetworks.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 0
 .PHONY : CMakeFiles/customneuralnetworks.dir/rule
@@ -116,6 +181,86 @@ customneuralnetworks: CMakeFiles/customneuralnetworks.dir/rule
 CMakeFiles/customneuralnetworks.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/clean
 .PHONY : CMakeFiles/customneuralnetworks.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/neural_network_benchmark.dir
+
+# All Build rule for target.
+CMakeFiles/neural_network_benchmark.dir/all: _deps/benchmark-build/src/CMakeFiles/benchmark.dir/all
+CMakeFiles/neural_network_benchmark.dir/all: _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/all
+CMakeFiles/neural_network_benchmark.dir/all: CMakeFiles/neural_network_lib.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_benchmark.dir/build.make CMakeFiles/neural_network_benchmark.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_benchmark.dir/build.make CMakeFiles/neural_network_benchmark.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=25,26 "Built target neural_network_benchmark"
+.PHONY : CMakeFiles/neural_network_benchmark.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/neural_network_benchmark.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 28
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/neural_network_benchmark.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 0
+.PHONY : CMakeFiles/neural_network_benchmark.dir/rule
+
+# Convenience name for target.
+neural_network_benchmark: CMakeFiles/neural_network_benchmark.dir/rule
+.PHONY : neural_network_benchmark
+
+# clean rule for target.
+CMakeFiles/neural_network_benchmark.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_benchmark.dir/build.make CMakeFiles/neural_network_benchmark.dir/clean
+.PHONY : CMakeFiles/neural_network_benchmark.dir/clean
+
+#=============================================================================
+# Target rules for target _deps/benchmark-build/src/CMakeFiles/benchmark.dir
+
+# All Build rule for target.
+_deps/benchmark-build/src/CMakeFiles/benchmark.dir/all:
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark.dir/depend
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 "Built target benchmark"
+.PHONY : _deps/benchmark-build/src/CMakeFiles/benchmark.dir/all
+
+# Build rule for subdir invocation for target.
+_deps/benchmark-build/src/CMakeFiles/benchmark.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 20
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/benchmark-build/src/CMakeFiles/benchmark.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 0
+.PHONY : _deps/benchmark-build/src/CMakeFiles/benchmark.dir/rule
+
+# Convenience name for target.
+benchmark: _deps/benchmark-build/src/CMakeFiles/benchmark.dir/rule
+.PHONY : benchmark
+
+# clean rule for target.
+_deps/benchmark-build/src/CMakeFiles/benchmark.dir/clean:
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark.dir/clean
+.PHONY : _deps/benchmark-build/src/CMakeFiles/benchmark.dir/clean
+
+#=============================================================================
+# Target rules for target _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir
+
+# All Build rule for target.
+_deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/all: _deps/benchmark-build/src/CMakeFiles/benchmark.dir/all
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/depend
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=21,22 "Built target benchmark_main"
+.PHONY : _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/all
+
+# Build rule for subdir invocation for target.
+_deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 22
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles 0
+.PHONY : _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/rule
+
+# Convenience name for target.
+benchmark_main: _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/rule
+.PHONY : benchmark_main
+
+# clean rule for target.
+_deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/clean
+.PHONY : _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -1,1 +1,1 @@
-/usr/bin/c++  -fopenmp CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o CMakeFiles/customneuralnetworks.dir/main.c++.o -o customneuralnetworks  /usr/lib/gcc/x86_64-linux-gnu/13/libgomp.so /usr/lib/x86_64-linux-gnu/libpthread.a 
+/usr/bin/c++  -fopenmp -O3 -DNDEBUG -O3 CMakeFiles/customneuralnetworks.dir/main.c++.o -o customneuralnetworks  libneural_network_lib.a /usr/lib/gcc/x86_64-linux-gnu/13/libgomp.so /usr/lib/x86_64-linux-gnu/libpthread.a 

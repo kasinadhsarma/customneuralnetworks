@@ -95,6 +95,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kasinadhsarma/customneuralnetworks/build/CMakeFiles /home/kasinadhsarma/customneuralnetworks/build//CMakeFiles/progress.marks
@@ -127,6 +172,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named neural_network_lib
+
+# Build rule for target.
+neural_network_lib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 neural_network_lib
+.PHONY : neural_network_lib
+
+# fast build rule for target.
+neural_network_lib/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/build
+.PHONY : neural_network_lib/fast
+
+#=============================================================================
 # Target rules for targets named customneuralnetworks
 
 # Build rule for target.
@@ -138,6 +196,69 @@ customneuralnetworks: cmake_check_build_system
 customneuralnetworks/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/build
 .PHONY : customneuralnetworks/fast
+
+#=============================================================================
+# Target rules for targets named neural_network_benchmark
+
+# Build rule for target.
+neural_network_benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 neural_network_benchmark
+.PHONY : neural_network_benchmark
+
+# fast build rule for target.
+neural_network_benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_benchmark.dir/build.make CMakeFiles/neural_network_benchmark.dir/build
+.PHONY : neural_network_benchmark/fast
+
+#=============================================================================
+# Target rules for targets named benchmark
+
+# Build rule for target.
+benchmark: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmark
+.PHONY : benchmark
+
+# fast build rule for target.
+benchmark/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark.dir/build
+.PHONY : benchmark/fast
+
+#=============================================================================
+# Target rules for targets named benchmark_main
+
+# Build rule for target.
+benchmark_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 benchmark_main
+.PHONY : benchmark_main
+
+# fast build rule for target.
+benchmark_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/build.make _deps/benchmark-build/src/CMakeFiles/benchmark_main.dir/build
+.PHONY : benchmark_main/fast
+
+benchmark/neural_network_benchmark.o: benchmark/neural_network_benchmark.cpp.o
+.PHONY : benchmark/neural_network_benchmark.o
+
+# target to build an object file
+benchmark/neural_network_benchmark.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_benchmark.dir/build.make CMakeFiles/neural_network_benchmark.dir/benchmark/neural_network_benchmark.cpp.o
+.PHONY : benchmark/neural_network_benchmark.cpp.o
+
+benchmark/neural_network_benchmark.i: benchmark/neural_network_benchmark.cpp.i
+.PHONY : benchmark/neural_network_benchmark.i
+
+# target to preprocess a source file
+benchmark/neural_network_benchmark.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_benchmark.dir/build.make CMakeFiles/neural_network_benchmark.dir/benchmark/neural_network_benchmark.cpp.i
+.PHONY : benchmark/neural_network_benchmark.cpp.i
+
+benchmark/neural_network_benchmark.s: benchmark/neural_network_benchmark.cpp.s
+.PHONY : benchmark/neural_network_benchmark.s
+
+# target to generate assembly for a file
+benchmark/neural_network_benchmark.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_benchmark.dir/build.make CMakeFiles/neural_network_benchmark.dir/benchmark/neural_network_benchmark.cpp.s
+.PHONY : benchmark/neural_network_benchmark.cpp.s
 
 main.o: main.c++.o
 .PHONY : main.o
@@ -163,12 +284,36 @@ main.c++.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/main.c++.s
 .PHONY : main.c++.s
 
+src/DenseLayer.o: src/DenseLayer.cpp.o
+.PHONY : src/DenseLayer.o
+
+# target to build an object file
+src/DenseLayer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/DenseLayer.cpp.o
+.PHONY : src/DenseLayer.cpp.o
+
+src/DenseLayer.i: src/DenseLayer.cpp.i
+.PHONY : src/DenseLayer.i
+
+# target to preprocess a source file
+src/DenseLayer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/DenseLayer.cpp.i
+.PHONY : src/DenseLayer.cpp.i
+
+src/DenseLayer.s: src/DenseLayer.cpp.s
+.PHONY : src/DenseLayer.s
+
+# target to generate assembly for a file
+src/DenseLayer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/DenseLayer.cpp.s
+.PHONY : src/DenseLayer.cpp.s
+
 src/Model.o: src/Model.cpp.o
 .PHONY : src/Model.o
 
 # target to build an object file
 src/Model.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/Model.cpp.o
 .PHONY : src/Model.cpp.o
 
 src/Model.i: src/Model.cpp.i
@@ -176,7 +321,7 @@ src/Model.i: src/Model.cpp.i
 
 # target to preprocess a source file
 src/Model.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/Model.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/Model.cpp.i
 .PHONY : src/Model.cpp.i
 
 src/Model.s: src/Model.cpp.s
@@ -184,39 +329,15 @@ src/Model.s: src/Model.cpp.s
 
 # target to generate assembly for a file
 src/Model.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/Model.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/Model.cpp.s
 .PHONY : src/Model.cpp.s
-
-src/NeuralNetwork.o: src/NeuralNetwork.cpp.o
-.PHONY : src/NeuralNetwork.o
-
-# target to build an object file
-src/NeuralNetwork.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o
-.PHONY : src/NeuralNetwork.cpp.o
-
-src/NeuralNetwork.i: src/NeuralNetwork.cpp.i
-.PHONY : src/NeuralNetwork.i
-
-# target to preprocess a source file
-src/NeuralNetwork.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.i
-.PHONY : src/NeuralNetwork.cpp.i
-
-src/NeuralNetwork.s: src/NeuralNetwork.cpp.s
-.PHONY : src/NeuralNetwork.s
-
-# target to generate assembly for a file
-src/NeuralNetwork.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.s
-.PHONY : src/NeuralNetwork.cpp.s
 
 src/ReLU.o: src/ReLU.cpp.o
 .PHONY : src/ReLU.o
 
 # target to build an object file
 src/ReLU.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/ReLU.cpp.o
 .PHONY : src/ReLU.cpp.o
 
 src/ReLU.i: src/ReLU.cpp.i
@@ -224,7 +345,7 @@ src/ReLU.i: src/ReLU.cpp.i
 
 # target to preprocess a source file
 src/ReLU.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/ReLU.cpp.i
 .PHONY : src/ReLU.cpp.i
 
 src/ReLU.s: src/ReLU.cpp.s
@@ -232,7 +353,7 @@ src/ReLU.s: src/ReLU.cpp.s
 
 # target to generate assembly for a file
 src/ReLU.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/customneuralnetworks.dir/build.make CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/neural_network_lib.dir/build.make CMakeFiles/neural_network_lib.dir/src/ReLU.cpp.s
 .PHONY : src/ReLU.cpp.s
 
 # Help Target
@@ -242,18 +363,29 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... benchmark"
+	@echo "... benchmark_main"
 	@echo "... customneuralnetworks"
+	@echo "... neural_network_benchmark"
+	@echo "... neural_network_lib"
+	@echo "... benchmark/neural_network_benchmark.o"
+	@echo "... benchmark/neural_network_benchmark.i"
+	@echo "... benchmark/neural_network_benchmark.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/DenseLayer.o"
+	@echo "... src/DenseLayer.i"
+	@echo "... src/DenseLayer.s"
 	@echo "... src/Model.o"
 	@echo "... src/Model.i"
 	@echo "... src/Model.s"
-	@echo "... src/NeuralNetwork.o"
-	@echo "... src/NeuralNetwork.i"
-	@echo "... src/NeuralNetwork.s"
 	@echo "... src/ReLU.o"
 	@echo "... src/ReLU.i"
 	@echo "... src/ReLU.s"

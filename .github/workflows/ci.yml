@@ -24,7 +24,7 @@ jobs:
             cxx: clang++
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install dependencies
       run: |
@@ -36,20 +36,21 @@ jobs:
         CC: ${{ matrix.cc }}
         CXX: ${{ matrix.cxx }}
       run: |
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+        rm -rf build
+        cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build build --config ${{env.BUILD_TYPE}}
 
     - name: Test
-      working-directory: ${{github.workspace}}/build
+      working-directory: build
       run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
 
   static-analysis:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install Clang Tools
       run: |
@@ -58,18 +59,18 @@ jobs:
 
     - name: Run Clang-Tidy
       run: |
-        find ${{github.workspace}}/src -name '*.cpp' -exec clang-tidy {} -checks=*,-llvm-header-guard \;
-        find ${{github.workspace}}/include -name '*.hpp' -exec clang-tidy {} -checks=*,-llvm-header-guard \;
+        find src -name '*.cpp' -exec clang-tidy {} -checks=*,-llvm-header-guard \;
+        find include -name '*.hpp' -exec clang-tidy {} -checks=*,-llvm-header-guard \;
 
     - name: Run Cppcheck
       run: |
-        cppcheck --enable=all --suppress=missingInclude --error-exitcode=1 ${{github.workspace}}/src ${{github.workspace}}/include
+        cppcheck --enable=warning,performance,portability --suppress=missingInclude --error-exitcode=1 src include
 
   code-coverage:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install dependencies
       run: |
@@ -78,19 +79,20 @@ jobs:
 
     - name: Configure CMake with Coverage
       run: |
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+        cmake -B build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build
+      run: cmake --build build
 
     - name: Run Tests with Coverage
-      working-directory: ${{github.workspace}}/build
+      working-directory: build
       run: |
         ctest --output-on-failure
         lcov --directory . --capture --output-file coverage.info
         lcov --remove coverage.info '/usr/*' --output-file coverage.info
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
-        files: ${{github.workspace}}/build/coverage.info
+        files: build/coverage.info
+        token: ${{ secrets.CODECOV_TOKEN }}

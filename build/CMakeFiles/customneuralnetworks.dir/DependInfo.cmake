@@ -9,9 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/kasinadhsarma/customneuralnetworks/main.c++" "CMakeFiles/customneuralnetworks.dir/main.c++.o" "gcc" "CMakeFiles/customneuralnetworks.dir/main.c++.o.d"
-  "/home/kasinadhsarma/customneuralnetworks/src/Model.cpp" "CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o" "gcc" "CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o.d"
-  "/home/kasinadhsarma/customneuralnetworks/src/NeuralNetwork.cpp" "CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o" "gcc" "CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o.d"
-  "/home/kasinadhsarma/customneuralnetworks/src/ReLU.cpp" "CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o" "gcc" "CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

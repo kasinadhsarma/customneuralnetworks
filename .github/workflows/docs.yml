@@ -6,12 +6,20 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-docs:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages-deployment
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install Doxygen
       run: |
@@ -20,12 +28,17 @@ jobs:
 
     - name: Generate Doxygen Documentation
       run: |
-        doxygen Doxyfile || (echo "Doxygen failed to generate documentation" && exit 1)
+        doxygen Doxyfile
 
-    - name: Deploy Documentation
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/html
-        force_orphan: true
+        path: 'docs/html'
+
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      id: deployment
+      uses: actions/deploy-pages@v4

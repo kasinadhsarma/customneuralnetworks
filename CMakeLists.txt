@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 project(customneuralnetworks)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Enable optimizations for Release builds
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
@@ -20,27 +21,52 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(json)
 
+# Google Benchmark
+if(ENABLE_BENCHMARKS)
+    FetchContent_Declare(
+        benchmark
+        GIT_REPOSITORY https://github.com/google/benchmark.git
+        GIT_TAG v1.8.3
+    )
+    set(BENCHMARK_ENABLE_TESTING OFF)
+    FetchContent_MakeAvailable(benchmark)
+endif()
+
 # Include directories
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-# Source files
-file(GLOB SOURCES 
-    "src/*.cpp"
+# Explicitly list source files to avoid duplicates
+set(LIB_SOURCES
+    src/Model.cpp
+    src/ReLU.cpp
+    src/DenseLayer.cpp
 )
 
-# Add the main file explicitly
-add_executable(${PROJECT_NAME} ${SOURCES} "main.c++")
+# Create main library
+add_library(neural_network_lib ${LIB_SOURCES})
+target_link_libraries(neural_network_lib 
+    PUBLIC OpenMP::OpenMP_CXX
+    PUBLIC nlohmann_json::nlohmann_json
+)
 
-# Link libraries
+# Create main executable
+add_executable(${PROJECT_NAME} "main.c++")
 target_link_libraries(${PROJECT_NAME} 
-    PRIVATE OpenMP::OpenMP_CXX
-    PRIVATE nlohmann_json::nlohmann_json
+    PRIVATE neural_network_lib
 )
 
-# Enable testing
-enable_testing()
+# Benchmarks
+if(ENABLE_BENCHMARKS)
+    add_executable(neural_network_benchmark benchmark/neural_network_benchmark.cpp)
+    target_link_libraries(neural_network_benchmark
+        PRIVATE neural_network_lib
+        PRIVATE benchmark::benchmark
+        PRIVATE benchmark::benchmark_main
+    )
+endif()
 
-# Optional: Add subdirectory for tests if they exist
+# Testing
+enable_testing()
 if(EXISTS "${PROJECT_SOURCE_DIR}/tests")
     add_subdirectory(tests)
 endif()

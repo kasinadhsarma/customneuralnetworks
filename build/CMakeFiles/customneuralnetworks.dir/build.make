@@ -69,52 +69,10 @@ include CMakeFiles/customneuralnetworks.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/customneuralnetworks.dir/flags.make
 
-CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o: CMakeFiles/customneuralnetworks.dir/flags.make
-CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o: /home/kasinadhsarma/customneuralnetworks/src/Model.cpp
-CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o: CMakeFiles/customneuralnetworks.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o -MF CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o.d -o CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o -c /home/kasinadhsarma/customneuralnetworks/src/Model.cpp
-
-CMakeFiles/customneuralnetworks.dir/src/Model.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/customneuralnetworks.dir/src/Model.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kasinadhsarma/customneuralnetworks/src/Model.cpp > CMakeFiles/customneuralnetworks.dir/src/Model.cpp.i
-
-CMakeFiles/customneuralnetworks.dir/src/Model.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/customneuralnetworks.dir/src/Model.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kasinadhsarma/customneuralnetworks/src/Model.cpp -o CMakeFiles/customneuralnetworks.dir/src/Model.cpp.s
-
-CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o: CMakeFiles/customneuralnetworks.dir/flags.make
-CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o: /home/kasinadhsarma/customneuralnetworks/src/NeuralNetwork.cpp
-CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o: CMakeFiles/customneuralnetworks.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o -MF CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o.d -o CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o -c /home/kasinadhsarma/customneuralnetworks/src/NeuralNetwork.cpp
-
-CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kasinadhsarma/customneuralnetworks/src/NeuralNetwork.cpp > CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.i
-
-CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kasinadhsarma/customneuralnetworks/src/NeuralNetwork.cpp -o CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.s
-
-CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o: CMakeFiles/customneuralnetworks.dir/flags.make
-CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o: /home/kasinadhsarma/customneuralnetworks/src/ReLU.cpp
-CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o: CMakeFiles/customneuralnetworks.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o -MF CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o.d -o CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o -c /home/kasinadhsarma/customneuralnetworks/src/ReLU.cpp
-
-CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kasinadhsarma/customneuralnetworks/src/ReLU.cpp > CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.i
-
-CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kasinadhsarma/customneuralnetworks/src/ReLU.cpp -o CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.s
-
 CMakeFiles/customneuralnetworks.dir/main.c++.o: CMakeFiles/customneuralnetworks.dir/flags.make
 CMakeFiles/customneuralnetworks.dir/main.c++.o: /home/kasinadhsarma/customneuralnetworks/main.c++
 CMakeFiles/customneuralnetworks.dir/main.c++.o: CMakeFiles/customneuralnetworks.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/customneuralnetworks.dir/main.c++.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/customneuralnetworks.dir/main.c++.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/customneuralnetworks.dir/main.c++.o -MF CMakeFiles/customneuralnetworks.dir/main.c++.o.d -o CMakeFiles/customneuralnetworks.dir/main.c++.o -c /home/kasinadhsarma/customneuralnetworks/main.c++
 
 CMakeFiles/customneuralnetworks.dir/main.c++.i: cmake_force
@@ -127,23 +85,18 @@ CMakeFiles/customneuralnetworks.dir/main.c++.s: cmake_force
 
 # Object files for target customneuralnetworks
 customneuralnetworks_OBJECTS = \
-"CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o" \
-"CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o" \
-"CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o" \
 "CMakeFiles/customneuralnetworks.dir/main.c++.o"
 
 # External object files for target customneuralnetworks
 customneuralnetworks_EXTERNAL_OBJECTS =
 
-customneuralnetworks: CMakeFiles/customneuralnetworks.dir/src/Model.cpp.o
-customneuralnetworks: CMakeFiles/customneuralnetworks.dir/src/NeuralNetwork.cpp.o
-customneuralnetworks: CMakeFiles/customneuralnetworks.dir/src/ReLU.cpp.o
 customneuralnetworks: CMakeFiles/customneuralnetworks.dir/main.c++.o
 customneuralnetworks: CMakeFiles/customneuralnetworks.dir/build.make
+customneuralnetworks: libneural_network_lib.a
 customneuralnetworks: /usr/lib/gcc/x86_64-linux-gnu/13/libgomp.so
 customneuralnetworks: /usr/lib/x86_64-linux-gnu/libpthread.a
 customneuralnetworks: CMakeFiles/customneuralnetworks.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable customneuralnetworks"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kasinadhsarma/customneuralnetworks/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable customneuralnetworks"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/customneuralnetworks.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

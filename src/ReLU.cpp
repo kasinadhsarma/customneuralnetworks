@@ -14,27 +14,18 @@ float ReLU::derivative(float x) {
 }
 
 std::vector<float> ReLU::forward(const std::vector<float>& input) {
-    input_cache = input;
     std::vector<float> output(input.size());
-
-    #pragma omp parallel for
-    for (size_t i = 0; i < input.size(); ++i) {
-        // Apply leaky ReLU with small slope for negative values
-        output[i] = input[i] > 0.0f ? input[i] : 0.01f * input[i];
-    }
-
+    std::transform(input.begin(), input.end(), output.begin(), [](float x) {
+        return std::max(0.0f, x);
+    });
     return output;
 }
 
 std::vector<float> ReLU::backward(const std::vector<float>& gradient) {
     std::vector<float> output(gradient.size());
-
-    #pragma omp parallel for
-    for (size_t i = 0; i < gradient.size(); ++i) {
-        // Leaky ReLU derivative
-        output[i] = gradient[i] * (input_cache[i] > 0.0f ? 1.0f : 0.01f);
-    }
-
+    std::transform(gradient.begin(), gradient.end(), output.begin(), [](float x) {
+        return x > 0 ? 1.0f : 0.0f;
+    });
     return output;
 }
 

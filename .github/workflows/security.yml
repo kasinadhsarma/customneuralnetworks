@@ -8,23 +8,30 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # Run weekly
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
   security:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Run CodeQL Analysis
-      uses: github/codeql-action/init@v2
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
       with:
         languages: cpp
 
     - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+      uses: github/codeql-action/autobuild@v3
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:cpp"
 
     - name: Install Dependencies
       run: |
@@ -33,10 +40,10 @@ jobs:
 
     - name: Run Flawfinder
       run: |
-        flawfinder --html --minlevel=3 ${{github.workspace}} > flawfinder-report.html
+        flawfinder --html --minlevel=3 . > flawfinder-report.html
 
     - name: Upload Flawfinder Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-pages-artifact@v3
       with:
         name: flawfinder-report
         path: flawfinder-report.html
